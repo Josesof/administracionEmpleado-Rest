@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+
+    <h:form>
+
+        <p:panel>
+            <f:facet name="header">
+                New Departamento
+                <p:commandButton action="#{departamentoController.refresh()}"
+                                 icon="pi pi-refresh" update="@form" process="@this"/>
+            </f:facet>
+            <h:panelGrid columns="2">             
+                <p:outputLabel value="codigo departamento"/>
+                <p:inputText value="#{departamentoControlle.departamento.codigoDepartamento}"
+                             required="true"/>
+                <p:outputLabel value="nombre"/>
+                <p:inputText value="#{departamentoControlle.departamento.nombreDepartamento}"
+                             required="true"/>
+                <p:outputLabel value="departamento"/>
+                <p:datePicker value="#{departamentoControlle.departamento.departamento}"
+                              showTime="true" required="true"/>
+               
+               
+
+                <p:outputLabel/>
+                <p:commandButton value="Save" action="#{departamento.save()}"
+                                 update="@form" process="@parent"/>
+
+            </h:panelGrid>
+        </p:panel>
+
+        <br/>
+
+        <p:panel>
+            <f:facet name="header">
+              Departamentos
+                <p:commandButton action="#{departamentoController.fetchAll()}"
+                                 icon="pi pi-refresh" update="@form" process="@this"/>
+            </f:facet>
+            <p:dataTable var="departamento" value="#{departamentoController.departamentos}"
+                         rows="10" paginator="true">
+
+                <p:column headerText="Id" width="10%">
+                    <h:outputText value="#{departamento.id}"/>
+                </p:column>
+
+                <p:column headerText="Departramento">
+                    <h:outputText value="#{departamento.codigoDepartamento}"/>
+                </p:column>
+
+                <p:column headerText="Nombre departamento">
+                    <h:outputText value="#{departamento.nombreDepartamento}"/>
+                </p:column>
+
+                <p:column headerText="Departamento">
+                    <h:outputText value="#{departamento.departamento}"/>
+                </p:column>
+
+                <p:column headerText="Fecha Creacion">
+                    <h:outputText value="#{departamento.fechaCreacion}">
+                        <f:convertDateTime pattern="yyyy-MM-dd hh:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+
+               
+
+                <p:column headerText="Options" width="10%">
+                    <p:commandButton icon="pi pi-pencil" action="#{departamentoController.edit(departamento)}"
+                                     update="@form" process="@this"/>
+                </p:column>
+
+            </p:dataTable>
+        </p:panel>
+    </h:form>
+
+</h:body>
+</html>
